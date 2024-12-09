@@ -1,0 +1,9 @@
+dependencies:
+- name: replicated
+  repository: oci://registry.replicated.com/library
+  version: 1.0.0-beta.31
+- name: harbor
+  repository: https://helm.goharbor.io
+  version: 1.16.0
+digest: sha256:37ea2bdfdbada95427454945f07818de8295db84a1e4e75c62006b8f5aa16136
+generated: "2024-12-09T12:20:25.526038Z"
