@@ -1,0 +1,11 @@
+# TODO: Read from list of values
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ default .Release.Name .Values.name }}-pguser-rhino
+  labels:
+    {{- include "app.labels" . | nindent 4 }}
+    postgres-operator.crunchydata.com/cluster: {{ default .Release.Name .Values.name }}
+    postgres-operator.crunchydata.com/pguser: rhino
+stringData:
+  password: river

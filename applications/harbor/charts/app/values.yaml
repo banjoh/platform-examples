@@ -1,5 +1,18 @@
+# This is to override the chart name.
+nameOverride: ""
+fullnameOverride: ""
+
 harbor:
   externalURL: https://harbor.banjoh.net
+  database:
+    type: external
+    external:
+      host: harbor-primary
+      port: 5432
+      username: rhino
+      password: river
+      coreDatabase: harbor
+    # existingSecret: prefer this
 
 pgo:
   # Manage cluster-wide PG clusters or not
@@ -17,16 +30,16 @@ pgo:
 ###########
 # General #
 ###########
-
+# TODO: Namespace these values under postgres
 # name is the name of the cluster. This defaults to the name of the Helm
 # release.
-# name: hippo
+name: harbor
 
 # postgresVersion sets the version to deploy. This version number needs to be
 # available as one of the "RELATED_IMAGE_POSTGRES_..." images as part of the PGO
 # installation if you want to deploy the image without setting the "postgres"
 # image variable. This value is required.
-postgresVersion: 16
+postgresVersion: 17
 
 # postGISVersion if set and coupled with a PostGIS enabled container, enables
 # PostGIS. This version number needs to be available as one of the
@@ -78,7 +91,7 @@ postgresVersion: 16
 
 # instanceName lets you set the name of your instances. This defaults to
 # the value below. Setting "instances" overrides this value.
-# instanceName: instance1
+instanceName: database
 
 # instanceSize sets the size of the volume that contains the data. This defaults
 # to the value below. Settings "instances" overrides this value.
@@ -103,7 +116,7 @@ postgresVersion: 16
 # instanceReplicas lets you set the total number of Postgres replicas. This
 # defaults to the value below. More than on replica enables high availability
 # (HA). Settings "instances" overrides this value.
-# instanceReplicas: 1
+instanceReplicas: 1
 
 ##############################
 # Advanced Postgres Settings #
@@ -145,7 +158,11 @@ postgresVersion: 16
 
 # users sets any custom Postgres users and databases that they have  access to
 # as well as any permissions associated with the user account.
-# users: {}
+users:
+  - name: rhino
+    databases:
+      - harbor
+    options: "SUPERUSER REPLICATION"
 
 # dataSource specifies a data source for bootstrapping a Postgres cluster.
 # dataSource: {}
