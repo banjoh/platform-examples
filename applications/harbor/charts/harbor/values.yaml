@@ -1,12 +1,15 @@
 harbor:
   externalURL: https://harbor.banjoh.net
 
-crunchydata:
-  image:
-    repository: docker.io
-  namespace: pgo
+pgo:
+  # Manage cluster-wide PG clusters or not
+  singleNamespace: true
 
----
+# crunchydata:
+#   image:
+#     repository: docker.io
+#   namespace: pgo
+
 # For a full explanation of how to set up the custom resource, please refer to
 # the documentation:
 #    https://access.crunchydata.com/documentation/postgres-operator/v5/
