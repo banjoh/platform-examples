@@ -7,7 +7,7 @@ harbor:
   database:
     type: external
     external:
-      host: harbor-primary
+      host: harbor-primary.default.svc
       port: 5432
       username: rhino
       password: river
@@ -154,7 +154,12 @@ instanceReplicas: 1
 #     postgresql:
 #       parameters:
 #         synchronous_commit: "on"
-# patroni: {}
+patroni:
+  dynamicConfiguration:
+    postgresql:
+      pg_hba:
+        - "host all all 0.0.0.0/0 trust" # this line enabled logical replication with programmatic access
+        - "host all postgres 127.0.0.1/32 md5"
 
 # users sets any custom Postgres users and databases that they have  access to
 # as well as any permissions associated with the user account.
